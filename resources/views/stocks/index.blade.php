@@ -55,6 +55,7 @@
     <div class="mt-4">
         {{ $products->links() }} <!-- Pagination links -->
     </div>
+
     <a href="{{ route('dashboard') }}" class="btn btn-secondary mb-3">
         <i class="bi bi-box-arrow-left"></i> Retour
     </a>
@@ -92,6 +93,7 @@
                    '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
         });
 
+
         // Variable pour suivre l'état du filtre
         window.isNearOutOfStock = false;
 
@@ -128,7 +130,6 @@
             table.search('').columns().search('').draw(); // Réinitialiser et redessiner la table
             table.columns(3).search('^0$', true, false).draw();
         });
-
     });
 </script>
 @endsection
