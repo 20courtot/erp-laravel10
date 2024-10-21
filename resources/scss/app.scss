@@ -1,0 +1,17 @@
+@import 'bootstrap/scss/bootstrap';
+
+
+/* Stock épuisé */
+table#productsTable tr.low-stock td {
+    background-color: #f8d7da !important; /* Rouge clair */
+}
+
+/* Proche de la rupture */
+table#productsTable tr.near-stock td {
+    background-color: #fff3cd !important; /* Jaune clair */
+}
+
+/* Stock normal */
+table#productsTable tr.normal-stock td {
+    background-color: #d4edda !important; /* Vert clair */
+}
