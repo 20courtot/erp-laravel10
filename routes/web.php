@@ -32,11 +32,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [App\Http\Controllers\StockController::class, 'index'])->name('index');
     });
 
-    // Module de statistiques
-    Route::prefix('statistics')->name('statistics.')->group(function () {
-        Route::get('/', [App\Http\Controllers\StatisticsController::class, 'index'])->name('index');
-        // Ajoutez d'autres routes pour des fonctionnalités de statistiques ici
-    });
+// Module de statistiques
+Route::prefix('statistics')->name('statistics.')->group(function () {
+    // Page de sélection de produit
+    Route::get('/', [App\Http\Controllers\StatisticsController::class, 'index'])->name('index');
+    
+    // Afficher les statistiques d'un produit spécifique
+    Route::post('/product', [App\Http\Controllers\StatisticsController::class, 'showProductStatistics'])->name('product');
+});
+
 
     Route::get('/cbn', [App\Http\Controllers\CbnController::class, 'index'])->name('cbn.index');
 });
