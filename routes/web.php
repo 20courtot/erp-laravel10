@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -15,16 +16,8 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard'); // Créez une vue pour le tableau de bord
     })->name('dashboard');
 
-    // Module de gestion des ventes
-    Route::prefix('sales')->name('sales.')->group(function () {
-        Route::get('/', [App\Http\Controllers\SalesController::class, 'index'])->name('index');
-        Route::get('/create', [App\Http\Controllers\SalesController::class, 'create'])->name('create');
-        Route::post('/', [App\Http\Controllers\SalesController::class, 'store'])->name('store');
-        Route::get('/{sale}', [App\Http\Controllers\SalesController::class, 'show'])->name('show');
-        Route::get('/{sale}/edit', [App\Http\Controllers\SalesController::class, 'edit'])->name('edit');
-        Route::put('/{sale}', [App\Http\Controllers\SalesController::class, 'update'])->name('update');
-        Route::delete('/{sale}', [App\Http\Controllers\SalesController::class, 'destroy'])->name('destroy');
-    });
+    Route::resource('orders', OrderController::class);
+    
 
     // Module de gestion des stocks
     Route::prefix('stocks')->name('stocks.')->group(function () {
@@ -32,14 +25,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [App\Http\Controllers\StockController::class, 'index'])->name('index');
     });
 
-// Module de statistiques
-Route::prefix('statistics')->name('statistics.')->group(function () {
-    // Page de sélection de produit
-    Route::get('/', [App\Http\Controllers\StatisticsController::class, 'index'])->name('index');
-    
-    // Afficher les statistiques d'un produit spécifique
-    Route::post('/product', [App\Http\Controllers\StatisticsController::class, 'showProductStatistics'])->name('product');
-});
+    // Module de statistiques
+    Route::prefix('statistics')->name('statistics.')->group(function () {
+        // Page de sélection de produit
+        Route::get('/', [App\Http\Controllers\StatisticsController::class, 'index'])->name('index');
+        
+        // Afficher les statistiques d'un produit spécifique
+        Route::post('/product', [App\Http\Controllers\StatisticsController::class, 'showProductStatistics'])->name('product');
+    });
 
 
     Route::get('/cbn', [App\Http\Controllers\CbnController::class, 'index'])->name('cbn.index');

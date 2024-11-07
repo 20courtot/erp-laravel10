@@ -18,8 +18,8 @@ class Customer extends Model
     ];
 
     // Relation avec les ventes
-    public function sales()
+    public function orders()
     {
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Order::class);
     }
 }

@@ -1,36 +1,51 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class OrderSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        // Commandes pour "Chaise de bureau"
-        Order::create([
-            'product_id' => 1,
-            'quantity' => 50,
-            'status' => 'pending' // Commande en attente
-        ]);
+        $products = Product::all();
 
-        // Commandes pour "Table de salle à manger"
-        Order::create([
-            'product_id' => 2,
-            'quantity' => 10,
-            'status' => 'completed' // Commande complétée
-        ]);
+        foreach ($products as $product) {
+            Order::create([
+                'product_id' => $product->id,
+                'quantity' => rand(1, 100),
+                'status' => ['pending', 'completed', 'cancelled'][rand(0, 2)],
+                'expected_delivery_date' => $this->getRandomDeliveryDate(),
+                'description' => $this->getRandomDescription(),
+            ]);
+        }
+    }
 
-        // Commandes pour "Lampe de chevet"
-        Order::create([
-            'product_id' => 3,
-            'quantity' => 20,
-            'status' => 'pending' // Commande en attente
-        ]);
+    /**
+     * Génère une date de livraison aléatoire entre aujourd'hui et dans 30 jours.
+     */
+    private function getRandomDeliveryDate()
+    {
+        return Carbon::today()->addDays(rand(0, 30))->toDateString();
+    }
+
+    /**
+     * Génère une description aléatoire pour la commande.
+     */
+    private function getRandomDescription()
+    {
+        $descriptions = [
+            'Commande urgente, à livrer rapidement.',
+            'Inclut des articles fragiles, manipuler avec soin.',
+            'Client prioritaire, à traiter avec attention.',
+            'Livraison à coordonner avec le client.',
+            'Commande de réapprovisionnement pour le stock.',
+            'Livraison prévue en magasin.',
+            'Client VIP, inclure des échantillons.',
+        ];
+
+        return $descriptions[array_rand($descriptions)];
     }
 }

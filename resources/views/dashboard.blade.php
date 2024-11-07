@@ -8,12 +8,12 @@
         <div class="col-md-4 mb-4">
             <div class="card text-center">
                 <div class="card-header bg-primary text-white">
-                    Gestion des Ventes
+                    Gestion des Commandes
                 </div>
                 <div class="card-body">
                     <i class="bi bi-cart4 fs-1"></i> <!-- Icône pour la gestion des ventes -->
-                    <h5 class="card-title mt-3">Suivez vos transactions avec facilité.</h5>
-                    <a href="{{ route('sales.index') }}" class="btn btn-primary">Accéder</a>
+                    <h5 class="card-title mt-3">Suivez les commandes avec facilité.</h5>
+                    <a href="{{ route('orders.index') }}" class="btn btn-primary">Accéder</a>
                 </div>
             </div>
         </div>
